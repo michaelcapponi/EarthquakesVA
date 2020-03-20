@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>EarthQuakes VA</title>
+<script>var year=false; var country=false; 
+</script>
+<head> 
+
+</head>
+<body>
+    <div class = "filters" >
+                <label style="font-size: 16px; margin-left: 1%; margin-top: 0.5%;">Select Year</label>
+                <select name="select" class="selct"  >
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="2009">2009</option>
+                    <option value="2008">2008</option>
+                    <option value="2007">2007</option>
+                    <option value="2006">2006</option>
+                    <option value="2005">2005</option>
+                    <option value="2004">2004</option>
+                    <option value="2003">2003</option>
+                    <option value="2002">2002</option>
+                    <option value="2001">2001</option>
+                    <option value="2000">2000</option>
+                </select>
+                
+                <input type="checkbox" id="compareCheck" name="compare" value="Compare" onclick="nulla()">
+                <label id = "labelCompare" for="compareCheck"> Compare</label>
+            
+                <label id="place1"></label>
+                <label id="place2"></label>
+                <label class="b">EarthQuakes VA </label>
+            
+
+            <script>
+                function nulla(){
+                    if(manager.secondPlace== undefined){
+                    }else
+                    {
+                    manager.secondPlace= undefined
+                }
+                    
+                }
+                function myFunction() {
+                    
+                    var x = document.getElementById("scatterPlot");		    
+                    var w = document.getElementById("barChart");		    
+                    var y = document.getElementById("linePlot");
+                    var z = document.getElementById("radarChart");
+                    var k = document.getElementById("boxPlotMag");
+                    var r = document.getElementById("boxPlotDepth");
+        
+        
+                 
+                    x.style.display="block";
+                    w.style.display="block";
+                    y.style.display="none";
+                    z.style.display="none";
+                    k.style.display="none";
+                    r.style.display="none";
+        
+        
+                
+                
+                }
+                
+            </script>
+    </div>
+   
+    <div style="clear:both;"></div>
+    <div id="visualization">
+        <div id="graphicsTop">
+            <div id="map-holder"></div>
+            <div id="barChart"> 
+                <div id="showDiv"><input type="checkbox" id ="showValues"> <label for="showValues">Show all</label></div> <!-- FEDERICO -->
+                <div style="clear:both;"></div>
+                <div id="magPanel"></div> <!-- FEDERICO -->
+            </div>
+            <div id="radarChart"></div>
+            <div id="boxPlotMag"></div>
+            <div id="boxPlotDepth"><label class="c">Scale 1:10 </label></div>
+            <!--<div class="linePlot"></div>-->
+        </div>
+        <div id="graphicsBottom">
+            <div class="parallel_area">
+                <!--<label><input type="checkbox" > Sort values</label>-->
+            </div> 
+            <div id="scatterPlot"></div>
+            <div id="linePlot"></div>
+            
+
+
+           <!-- -->
+        </div>
+        <div style="clear:both;"></div>
+
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Yanone+Kaffeesatz:200" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="./helpers/utils.js"></script>
+    <script src="./helpers/dimensions.js"></script>
+    <script src="./helpers/header.js"></script>
+    <script src="./helpers/manager.js"></script>
+    <script src="./js/scatterPlot.js"></script>
+    <script src="./js/boxPlotMag.js"></script>
+    <script src="./js/boxPlotDepth.js"></script>
+    <script src="./js/barChart.js"></script>
+    <script src="./js/linePlot.js"></script>
+    <script src="./js/map-holder.js"></script>
+    <script src="./js/radarChart.js"></script>
+    <script src="./js/parallel.js"></script>
+
+</body>
