@@ -20,7 +20,7 @@ Manager = function () {
 
 Manager.prototype.loadData = function () {
     _obj = this;
-    var currYear = 2020;
+    var currYear = 2019;
     d3.csv("./data/earthquakes.csv", function (data) {
         currData = []
         places = ["---"]
@@ -190,7 +190,6 @@ Manager.prototype.triggerPlaceFilterEvent = function (selectedPlace, selectedYea
             this.dataMap = []
             for (var i = this.dataplace.length - 1; i >= 0; i-- ){
                 if (this.dataplace[i].place == this.secondPlace) {
-                    console.log(this.dataplace[i].place)
                     this.dataplace.splice(i,1);
                 }
             }

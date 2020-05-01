@@ -27,7 +27,6 @@ function cancelSelection() {
 }
 
 function parallelFiltering(d) {
-  console.log(manager.getDataFilteredByParallel().length)
   var rangeC = y["place"].range();
   var rangeT = y["magType"].range();
   var rangePointsC = d3.range(rangeC[0], rangeC[1], y["place"].step());
@@ -197,7 +196,6 @@ function start(){
         .range([0, height_parallel]);
         
     }else if (j == "time") {
-		console.log("ciao")
       var low = conv("0000");
       var high = conv("2359");
       y[j] = d3.scaleTime().domain([low, high]).range([height_parallel, 0]);
@@ -219,7 +217,7 @@ function start(){
       types.push("  ");
       y[j] = d3.scalePoint()
         .domain(types)
-        .rangeRound([0, height_parallel]);
+        .range([0, height_parallel]);
       
     }else if (j == "latitude") {
       var low = d3.extent(data, function(d) { return +d.latitude; })[0];
@@ -310,7 +308,10 @@ manager.addListener('dataReady', function (e) {
 
 
 manager.addListener('scatterplotBrushing', function (e) {
-  svgParallel.selectAll('.path_foreground').style("stroke", setColorByScatterplot).attr('class', setClass);
+  svgParallel.selectAll('.path_foreground')
+  .style("stroke", setColorByScatterplot)
+  .attr('class', setClass)
+  .style("opacity", setOpacityByScatterplot);
   svgParallel.selectAll('.path_highlighted').raise();
 });
 
@@ -337,14 +338,22 @@ function updateParallel(){
 }
 
 function setColorByScatterplot(d){
-  if (manager.filteringByScatterplot == undefined) return "#FF9900";
+  if (manager.filteringByScatterplot == undefined) return chooseColorByMag(d.mag, 0);
   value = manager.filteringByScatterplot(d);
   if (value) {
-    return "#006000";
+    return chooseColorByMag(d.mag, 1)
   }
-  return chooseColorByMag(d.mag);
+  return chooseColorByMag(d.mag, 0);
 }
 
+function setOpacityByScatterplot(d){
+  if (manager.filteringByScatterplot == undefined) return 1;
+  value = manager.filteringByScatterplot(d);
+  if (value) {
+    return 1
+  }
+  return 0.6;
+}
 
 function setClass(d) {
   if (manager.filteringByScatterplot == undefined) return 'path_foreground path_normal';

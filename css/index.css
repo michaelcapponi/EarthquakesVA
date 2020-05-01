@@ -143,6 +143,7 @@ svg {
 }
 
 #showDiv label {
+    left: 5%;
     padding: 4px;
     background-color: #ddd;
     font-family: sans-serif, Arial;
@@ -175,12 +176,26 @@ svg {
     cursor: pointer;
 }
 
+.barRectMag{
+    stroke: black;
+    stroke-width: 0.07%;
+}
+
 #magPanel{   /*FEDERICO*/
     margin-top: 30px;
-    margin-right: 20px;
+    margin-right: 5px;
     float: right;
-    font-size: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 4px;
+    border-color: black;
+    background-color: #2e4352;
+    display: none;
+    color: white;
 }
+
+
 /*////////////////////////////////*/
 
 /*LINE PLOT*/
@@ -225,6 +240,7 @@ svg {
     background-color: white;
     float: left;
     margin: 1px;
+    margin-bottom: 0.5px;
     width: 24%;
     height: 49%;
     display: none;
@@ -237,6 +253,7 @@ svg {
     background-color: white;
     float: left;
     margin: 1px;
+    margin-bottom: 0.5px;
     width: 24%;
     height: 49.55%;
     display: none;
@@ -256,7 +273,8 @@ svg {
 
 .filters{
     vertical-align: middle;
-    background-color:#D3D3D3;
+    color: white;
+    background-color:#2e4352;
     border-style:solid; 
     border-color:black; 
     border-width:2px; 
@@ -272,10 +290,11 @@ svg {
     font-size: 16px;
     border: 2px solid #444;
     border-radius: 4px;
+    color:black;
 }
 
 #labelCompare:hover {
-  background-color: #dfd;
+    background-color: #dfd;
 }
 
 .filters input[type="checkbox"]:checked + #labelCompare {
@@ -284,24 +303,27 @@ svg {
 }
 
 #place1{
+    margin-top: 0.8%;
     display: inline-block;
     margin-left: 2%;
     font-weight: bold;
     font-size: 16px;
-    color: #254117;
+    color: #60b831;
 }
 
 #place2{
+    margin-top: 0.8%;
     display: inline-block;
     margin-left: 2%;
     font-weight: bold;
     font-size: 16px;
-    color: #3f007d;
+    color: #af1abd;
 }
 
 .selct {
     display: inline-block;
-    margin-top: 0.5%;
+    margin-top: 0.8%;
+    margin-left: 0.7%;
 	width:8%;
     font-size: 16px;
     font-family: sans-serif;
@@ -339,6 +361,7 @@ svg {
 
 .b {
     margin-top: 0.4%;
+    margin-right: 0.4%;
     font: italic bold 12px/30px Georgia, serif;
     font-size: 25px;
     float: right;
@@ -375,24 +398,29 @@ svg {
 }
       
 svgMap rect{
-    fill: #2A2C39;   /* map background colour */
+    fill: #851717;   /* map background colour */
 
+}
+
+svgMap{
+    fill: #bff5ff;
 }
 
 .country{
-    fill: #d0d0d0;   /* country colour */
-    stroke: #2A2C39; /* country border colour */
+    fill: #3d3c3c;   /* country colour */
+    stroke: #ffffff; /* country border colour */
     stroke-width: 1; /* country border width */
 }
 .country-on{
-    fill: #4B5358;   /* highlight colour for selected country */
+    fill: #b3b1b1;   /* highlight colour for selected country */
 }
 .countryLabel{
     display: none;   /* hide all country labels by default */
 }
 .countryName{
     fill: #FFFAFF;   /* country label text colour */
+    font-size: 14px;
 }
 .countryLabelBg{
-    fill: #30BCED;   /* country label background colour */
+    fill: rgb(94, 103, 223);   /* country label background colour */
 }

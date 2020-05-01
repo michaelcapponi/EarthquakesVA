@@ -4,7 +4,7 @@
   // Full world map is 2:1 ratio
   // Using 12:5 because we will crop top and bottom of map
   w = 3000;
-  h = 1250;
+  h = 1050;
   // variables for catching min and max zoom factors
   var minZoom;
   var maxZoom;
@@ -133,6 +133,7 @@ var svgMap = d3
 	// set to the same size as the "map-holder" div
 	.attr("width", $("#map-holder").width())
 	.attr("height", $("#map-holder").height())
+	.style("fill", "#bff5ff")
 	// add zoom functionality
 	.call(zoom)
 ;
@@ -241,12 +242,12 @@ manager.addListener('dataReady', function (e) {
 					else{
 						initiateZoom();
 					}
-					d3.selectAll("circle")
+					d3.selectAll(".circleMap")
 					.style("fill", function(d){
 						if (d.place == manager.place) {return chooseColorByMag(d.mag, 1);}
 						else if (d.place == manager.secondPlace) return chooseColorByMag(d.mag, 2);
 						else return chooseColorByMag(d.mag, 0);
-					});
+					})
 	
 					var x = document.getElementById("scatterPlot");		    
 					var w = document.getElementById("barChart");    
@@ -270,7 +271,7 @@ manager.addListener('dataReady', function (e) {
 					var z = document.getElementById("radarChart");
 					var k = document.getElementById("boxPlotMag");
 					var r = document.getElementById("boxPlotDepth");
-					if(dM.properties.name == manager.place && manager.secondPlace != undefined){
+					if (dM.properties.name == manager.place && manager.secondPlace != undefined){
 						manager.place = manager.secondPlace;
 						place1Div.innerHTML = manager.place;
 						place2Div.innerHTML = "";
@@ -279,17 +280,17 @@ manager.addListener('dataReady', function (e) {
 							if(d.properties.name == manager.place) return true;
 							return false;
 						});
-						d3.selectAll("circle")
+						d3.selectAll(".circleMap")
 						.style("fill", function(d){
 							if (d.place == manager.place) {return chooseColorByMag(d.mag, 1);}
 							else return chooseColorByMag(d.mag, 0);
-						});
+						})
 						var nameCountry = manager.place
 						manager.place = undefined;
 						place1Div.innerHTML = "";
 						manager.triggerPlaceFilterEvent(nameCountry, selectedYear);
 					}
-					else if(dM.properties.name == manager.place && manager.secondPlace == undefined){
+					else if (dM.properties.name == manager.place && manager.secondPlace == undefined){
 						manager.place = undefined;
 						place1Div.innerHTML = "";
 						d3.select(this).classed("country-on", false);
@@ -310,11 +311,11 @@ manager.addListener('dataReady', function (e) {
 							if(d.properties.name == manager.place) return true;
 							return false;
 						});
-						d3.selectAll("circle")
+						d3.selectAll(".circleMap")
 						.style("fill", function(d){
 							if (d.place == manager.place) {return chooseColorByMag(d.mag, 1);}
 							else return chooseColorByMag(d.mag, 0);
-						});
+						})
 						var nameCountry = manager.place
 						manager.place = undefined;
 						manager.triggerPlaceFilterEvent(nameCountry, selectedYear);
@@ -335,7 +336,7 @@ manager.addListener('dataReady', function (e) {
 			.attr("class","circleMap")
 			.attr("cx", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[0]; })
 			.attr("cy", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[1]; })
-			.attr("r", 7)
+			.attr("r", 5)
 			.style("fill", function(d){
 				return chooseColorByMag(d.mag,0)
 			})
@@ -409,11 +410,11 @@ manager.addListener('dataReady', function (e) {
 						if(d.properties.name == manager.place) return true;
 						return false;
 					});
-					d3.selectAll("circle")
+					d3.selectAll(".circleMap")
 					.style("fill", function(d){
 						if (d.place == manager.place) {return chooseColorByMag(d.mag, 1);}
 						else return chooseColorByMag(d.mag, 0);
-					});
+					})
 					var nameCountry = manager.place
 					manager.place = undefined;
 					manager.triggerPlaceFilterEvent(nameCountry, selectedYear);
@@ -437,11 +438,11 @@ manager.addListener('dataReady', function (e) {
 						if(d.properties.name == manager.place) return true;
 						return false;
 					});
-					d3.selectAll("circle")
+					d3.selectAll(".circleMap")
 					.style("fill", function(d){
 						if (d.place == manager.place) {return chooseColorByMag(d.mag, 1);}
 						else return chooseColorByMag(d.mag, 0);
-					});
+					})
 					var nameCountry = manager.place
 					manager.place = undefined;
 					manager.triggerPlaceFilterEvent(nameCountry, selectedYear);
@@ -466,13 +467,13 @@ manager.addListener('dataReady', function (e) {
 			.insert("rect", "text")
 			.attr("class", "countryLabelBg")
 			.attr("transform", function(dM) {
-				return "translate(" + (dM.bbox.x - 2) + "," + dM.bbox.y + ")";
+				return "translate(" + (dM.bbox.x - 2) + "," + (dM.bbox.y - 1) + ")";
 			})
 			.attr("width", function(dM) {
 				return dM.bbox.width + 4;
 			})
 			.attr("height", function(dM) {
-				return dM.bbox.height;
+				return dM.bbox.height + 2;
 			});
 		initiateZoom();
 		}
@@ -496,7 +497,8 @@ manager.addListener('yearChanged', function (e) {
 function setColorMapByScatterplot(d) {
   if (manager.filteringByScatterplot == undefined){ return chooseColorByMag(d.mag,0);}
   if (manager.filteringByScatterplot(d)){
-    return "#006000"
+	  console.log(1)
+    return chooseColorByMag(d.mag, 1)
   }
   else{
     return chooseColorByMag(d.mag,0);
@@ -539,21 +541,22 @@ function updatePoint2(){
 		.attr("class","circleMap")
 		.attr("cx", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[0]; })
 		.attr("cy", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[1]; })
-		.attr("r", 7)
+		.attr("r", 5)
 		.style("fill", function(d){
 			return chooseColorByMag(d.mag,0) 
 		})
 		.style("stroke", "#000")
 	
-	d3.selectAll("circle")
+	d3.selectAll(".circleMap")
 		.style("fill", function(d){
 			if (d.place == manager.place){ return chooseColorByMag(d.mag,1);}
 			else return chooseColorByMag(d.mag,0);
-		});
+		})
 }
 
 function updatePoint3(){
-	newdataM = map_getDataMap().slice();
+	newdataM = [];
+	if (manager.place != undefined) newdataM = map_getDataMap().slice();
 
 	appendData = map_getData();
 
@@ -575,18 +578,18 @@ function updatePoint3(){
 		.attr("class","circleMap")
 		.attr("cx", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[0]; })
 		.attr("cy", function (dM) { return projection([+dM["longitude"], +dM["latitude"]])[1]; })
-		.attr("r", 7)
+		.attr("r", 5)
 		.style("fill", function(d){
 			return chooseColorByMag(d.mag,0) 
 		})
-		.style("stroke", "#000")	
+		.style("stroke", "#000")
 	
-	d3.selectAll("circle")
+	d3.selectAll(".circleMap")
 		.style("fill", function(d){
 			if (d.place == manager.place) return chooseColorByMag(d.mag,1);
 			else if (d.place == manager.secondPlace) return chooseColorByMag(d.mag,2);
 			else return chooseColorByMag(d.mag,0);
-		});
+		})
 }
 
 function update() {
@@ -596,12 +599,12 @@ function update() {
 }
 
 manager.addListener('scatterplotBrushing', function (e) {
+	var dt = map_getData();
 	d3.selectAll(".circleMap")
-	.data(map_getData())
+	.data(dt)
 	.transition()
 	.duration(130)
 	.style('fill', setColorMapByScatterplot)
-	.attr("fill-opacity", 1)
 });
 
 manager.addListener('parallelBrushing', function (e) { 

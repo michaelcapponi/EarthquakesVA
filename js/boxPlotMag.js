@@ -95,7 +95,7 @@ function via(){
 	  .attr("height", (yBox(q1)-yBox(q3)) )
 	  .attr("width", widthD )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 
 	// show median, min and max horizontal lines
 	svgBox
@@ -147,7 +147,7 @@ var data_sorted3 = vett12.sort(d3.ascending)
 	  .attr("height", (yBox3(q13)-yBox3(q33)) )
 	  .attr("width", widthD3 )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 	  	  .style("display", "none");
 
 
@@ -194,6 +194,11 @@ function updateBox(){
 		var interQuantileRange = q3 - q1
 		var min2 = q1 - 1.5 * interQuantileRange
 		var max2= q1 + 1.5 * interQuantileRange
+		if (Number.isNaN(min2)) min2 = 0;
+		if (Number.isNaN(max2)) max2 = 0;
+		if (median == undefined) median = 0;
+		if (q1 == undefined) q1 = 0;
+		if (q3 == undefined) q3 = 0;
 		
 
 		svgBox.call(d3.axisLeft(yBox))
@@ -222,7 +227,7 @@ function updateBox(){
 		.attr("height", (yBox(q1)-yBox(q3)) )
 		.attr("width", widthD )
 		.attr("stroke", "black")
-		.style("fill", "#69b3a2")
+		.style("fill", "#035e00")
 		
 		var boxes = svgBox.selectAll(".lineBox").data([min2,median,max2])
 		boxes.exit().remove();
@@ -247,7 +252,6 @@ function updateBox(){
 			.attr("y2", function(d){ return(yBox(d))} )
 			.attr("stroke", "black")
 	}else{
-		console.log("fdgdfd")
 		var data = getData_boxDepth();
 		var vett12=[];
 		var vett3=[];
@@ -376,7 +380,7 @@ function updateBox(){
 		.attr("height", (yBox(q1)-yBox(q3)) )
 		.attr("width", widthD )
 		.attr("stroke", "black")
-		.style("fill", "#69b3a2")
+		.style("fill", "#035e00")
 		
 		var boxes = svgBox.selectAll(".lineBox").data([min2,median,max2])
 		boxes.exit().remove();
@@ -436,7 +440,7 @@ function updateBox(){
 		.attr("height", (yBox(q1)-yBox(q3)) )
 		.attr("width", widthD )
 		.attr("stroke", "black")
-		.style("fill", "#69b3a2")
+		.style("fill", "#035e00")
 		
 		var boxes = svgBox.selectAll(".lineBox").data([min2,median,max2])
 		boxes.exit().remove();

@@ -57,17 +57,7 @@ function initialize(data){
         .text("Months");
     
 
-    svgLine.selectAll(".lineCircle")
-        .data(fqcsLine)
-        .enter()
-        .append("circle")
-        .attr("class", "lineCircle")
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-        .attr("fill", "white")
-        .attr("cx", function(d) { return xLine(d[0]); })
-        .attr("cy", function(d) { return yLine(+parseInt(d[2])); })
-        .attr("r", 3)
+  
 
 }
 
@@ -185,7 +175,9 @@ function updateLine(){
 
 
     svgLine.selectAll(".linePath").data(sumstat).exit().remove();
-    svgLine.selectAll(".lineCircle").data(sumstat).exit().remove();
+    svgLine.selectAll(".lineCircle").data(fqcsLine).exit().remove();
+
+    
 
     // Draw the line
     svgLine.selectAll(".line")
@@ -206,7 +198,7 @@ function updateLine(){
     svgLine.selectAll(".linePath")
         .data(sumstat)
         .transition()
-        .duration(200)
+        .duration(500)
         .attr("d", function(d){
             return d3.line()
             .x(function(d) { return xLine(d[0]); })
@@ -230,19 +222,31 @@ function updateLine(){
         .attr("stroke", "black")
         .attr("stroke-width", 1)
         .attr("cx", function(d) {return xLine(d[0]); })
-        .attr("cy", function(d) { return yLine(+parseInt(d[2])); })
+        .attr("cy", function(d) {return yLine(+parseInt(d[2])); })
         .attr("r", 3)
-    
-        
+        .append("svg:title")
+        .attr("class", "lineCircleValue")
+        .text(function(d){return parseInt(d[2])});
     
     svgLine.selectAll(".lineCircle")
-        .data(sumstat)
+        .data(fqcsLine)
         .transition()
         .duration(200)
         .attr("fill", "white")
-        .attr("cx", function(d) { return xLine(d.values[0][0]); })
-        .attr("cy", function(d) { return yLine(+parseInt(d.values[0][2])); })
+        .attr("cx", function(d) { return xLine(d[0]); })
+        .attr("cy", function(d) { return yLine(+parseInt(d[2])); })
         .attr("r", 3)
+    svgLine.selectAll(".lineCircle").raise();
+    
+    svgLine.selectAll(".lineCircleValue")
+        .data(fqcsLine)
+        .transition()
+        .duration(500)
+        .text(function(d){return parseInt(d[2])})
+    
+        
+    
+    
     
 
 

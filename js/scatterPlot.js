@@ -2,14 +2,10 @@ var x_Scatter = d3.scaleLinear().range([0, widthScatter]),
     y_Scatter = d3.scaleLinear().range([heightScatter, 0])
 
     var color = {
-        "Mag 4.0":    '#FFC281',
-        "Mag 4.5":  "#FF9F71",
-        "Mag 5.0":    "#FF8141",
-        "Mag 5.5":  "#FF421E",
-        "Mag 6.0":    "#FF1F10",
-        "Mag 6.5":  "#E12000",
-        "Mag 7.0":    "#C21212",
-        "Mag 7.5+":  "#600000",
+        "Mag < 5.0":    "#FFC281",
+        "Mag < 6.0":    "#EF7215",
+        "Mag < 7.0":    "#B80F0A",
+        "Mag 7.0+":  "#3A1F04",
     };
 
 
@@ -97,7 +93,7 @@ manager.addListener('dataReady', function (e) {
         .call(brushTot);
 
     var legend = svgScatter.selectAll(".legend")
-                    .data(["Mag 7.5+", "Mag 7.0", "Mag 6.5", "Mag 6.0", "Mag 5.5", "Mag 5.0", "Mag 4.5", "Mag 4.0"])
+                    .data(["Mag 7.0+", "Mag < 7.0",  "Mag < 6.0", "Mag < 5.0"])
                 .enter().append("g")
                     .attr("class", "legend")
                     .attr("transform", function(d, i) { 
@@ -173,14 +169,10 @@ function updateScatter(){
 
 
 function computeMag(mag){
-    if (mag < 4.5) return "Mag 4.0";
-    else if (mag < 5.0) return "Mag 4.5";
-    else if (mag < 5.5) return "Mag 5.0";
-    else if (mag < 6.0) return "Mag 5.5";
-    else if (mag < 6.5) return "Mag 6.0";
-    else if (mag < 7.0) return "Mag 6.5";
-    else if (mag < 7.5) return "Mag 7.0";
-    else return "Mag 7.5+";
+    if (mag < 5.0) return "Mag < 5.0";
+    else if (mag < 6.0) return "Mag < 6.0";
+    else if (mag < 7.0) return "Mag < 7.0";
+    else return "Mag 7.0+";
 }
 
 //create brush function redraw scatterplot with selection

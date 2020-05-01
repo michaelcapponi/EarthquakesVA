@@ -2,11 +2,9 @@ import csv
 import sys
 import time
 from datetime import datetime
-from pathlib import Path
 
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from geopy.geocoders import Nominatim
 
 if len(sys.argv) > 1:
     file = sys.argv[1]
@@ -16,12 +14,7 @@ else:
 if len(sys.argv) > 2:
     out_file = sys.argv[2]
 else:
-    out_file = 'earthquakes.csv'
-    
-'''
-Path(Path(file).parent).mkdir(parents=True, exist_ok=True)
-Path(Path(out_file).parent).mkdir(parents=True, exist_ok=True)
-'''
+    out_file = '../data/earthquakes.csv'
 
 
 
@@ -34,11 +27,37 @@ with open(file, mode='r') as csv_file:
             line_count += 1
             header = row
         else:
-            data.append(row)
-            line_count += 1
+            if (float(row[header.index('mag')]) >= 4.5):
+                data.append(row)
+                line_count += 1
+
+for el in data:
+    for field in el:
+        if field == '':
+            i = data.index(el)
+            j = el.index(field)
+            data[i][j] = 0.0
 
 
-
+def mapMagType(mT):
+    if mT == "mb":
+        return 0
+    elif mT == "mwc":
+        return 1
+    elif mT == "mwb":
+        return 2
+    elif mT == "ml":
+        return 3
+    elif mT == "ms":
+        return 4
+    elif mT == "mwr":
+        return 5
+    elif mT == "md":
+        return 6
+    elif mT == "mww":
+        return 2
+    else:
+        return 7
 
 
 data_for_pca = []
@@ -48,9 +67,10 @@ for el in data:
     pca_date = time.mktime(datetime.strptime(el[header.index('date')], "%Y-%m-%d").timetuple())
     data_for_pca.append(
         [float(el[header.index('latitude')]), 
-        float(el[header.index('longitude')]),
         float(el[header.index('depth')]), 
         float(el[header.index('mag')]),
+        #float(el[header.index('nst')]),
+        float(el[header.index('rms')]),
         pca_time, 
         pca_date]
         )
@@ -74,7 +94,7 @@ for component in principalComponents:
     component[0] = component[0] + abs(min_x)
     component[1] = component[1] + abs(min_y)
     
-with open(out_file, 'w') as csvfile:
+with open(out_file, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quoting=csv.QUOTE_MINIMAL)
     lenComponents = len(principalComponents)
     index = 0

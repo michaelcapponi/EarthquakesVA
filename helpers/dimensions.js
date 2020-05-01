@@ -6,7 +6,7 @@ var margin_parallel = { top: 30, right: 30, bottom: 10, left: 55 },
  height_parallel = (clientHeight - margin_parallel.top -margin_parallel.bottom)*0.4;
 
 var marginBar = {top: 20, right: 20, bottom: 70, left: 50},
- widthBar = (clientWidth - marginBar.left - marginBar.right)*0.38,
+ widthBar = (clientWidth - marginBar.left - marginBar.right)*0.35,
  heightBar = (clientHeight - marginBar.top - marginBar.bottom)*0.33;
 
 var marginScatter = {top: 20, right: 20, bottom: 70, left: 40},

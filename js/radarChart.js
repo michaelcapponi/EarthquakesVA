@@ -11,7 +11,7 @@ var RadarChart = {
      radians: 2 * Math.PI,
      opacityArea: 0.6,
      ToRight: 5,
-     TranslateX: 60,
+     TranslateX: 52,
      TranslateY: 80,
      ExtraWidthX: 50,
      ExtraWidthY: 100,
@@ -112,7 +112,7 @@ var RadarChart = {
              .data([dataValues])
              .enter()
              .append("polygon")
-             .attr("class", "radar-chart-serie"+series)
+             .attr("class", "radar-chart-serie"+plID)
              .style("stroke-width", "2px")
              .style("stroke", function(d){               
                 if (plID == 1) return cfg.color1(series);
@@ -175,10 +175,7 @@ var RadarChart = {
           return cfg.h/2*(1-(Math.max(j.value, 0)/maxValue[i])*cfg.factor*Math.cos(i*cfg.radians/total));
         })
         .attr("data-id", function(j){return j.area})
-        .style("fill", function(d){               
-          if (plID == 1) return cfg.color1(series);
-          else return cfg.color2(series)
-       })
+        .style("fill", "white")
         .style("stroke-width", "2px")
         .style("stroke", function(d){               
           if (plID == 1) return cfg.color1(series);
@@ -187,11 +184,14 @@ var RadarChart = {
         .style("fill-opacity", .5)
         
         .append("svg:title")
+        .style("cursor", "pointer")
         .text(function(j){return Math.max(j.value, 0)});
   
         series++;
       });
     }
+
+    svgRadar.select(".radar-chart-serie1").raise();
     
     //Tooltip
     tooltip = g.append('text')
@@ -236,12 +236,21 @@ manager.addListener('placeChanged', function (e) {
 });
 
 manager.addListener('parallelBrushing', function (e) {
-  if (manager.filteringByYear == false){
-    var data = getDataRadar();
-    if (data.length > 0){
-      data = processData(data);
-      RadarChart.draw("#radarChart", data, config);
-    }
+  var data = getDataRadar();
+  if (manager.secondPlace == undefined){
+    data = processData(data);
+    RadarChart.draw("#radarChart", data, config, 1);
+  }
+  else{
+    var data1 = [], data2 = [];
+    data.forEach(el => {
+      if (el.place == manager.place) data1.push(el)
+      else data2.push(el)
+    })
+    data1 = processData(data1);
+    RadarChart.draw("#radarChart", data1, config, 1)
+    data2 = processData(data2);
+    RadarChart.draw("#radarChart", data2, config, 2)
   }
 });
 

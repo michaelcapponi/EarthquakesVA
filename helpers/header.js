@@ -5,8 +5,7 @@ yearSelector.addEventListener('change', function () {
     
 });
 
-var yearsSelect = [ "2020",
-                    "2019",
+var yearsSelect = [ "2019",
                     "2018",
                     "2017",
                     "2016",

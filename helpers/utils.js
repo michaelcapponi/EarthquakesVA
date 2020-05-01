@@ -69,45 +69,37 @@ function list_push(data){
 function chooseColorByMag(mag,plID){
   if (manager.compareMode == true && plID != 0){
     if (plID == 1){
-      if /*(mag<4.5){ return      '#c7e9c0'} 
+      if /*(mag<4.5){ return    '#c7e9c0'} 
       else if (mag<5){ return   "#a1d99b"} 
-      else if */(mag<5.5){ return "#74c476"} 
-      else if (mag<6){ return   "#41ab5d"} 
-      else if (mag<6.5){ return "#238b45"} 
-      else if (mag<7){ return   "#006d2c"} 
-      else if (mag<7.5){ return "#00441b"} 
-      else{ return              "#254117"} 
+      else if */(mag<5){ return "#57be73"} 
+      else if (mag<6){ return   "#207a3e"} 
+      else if (mag<7){ return   "#015021"} 
+      else{ return              "#00250f"} 
     }
     else{
       if /*(mag<4.5){ return      '#dadaeb'} 
       else if (mag<5){ return   "#E9CFEC"} 
-      else if */(mag<5.5){ return "#9e9ac8"} 
-      else if (mag<6){ return   "#9e9ac8"} 
-      else if (mag<6.5){ return "#807dba"} 
-      else if (mag<7){ return   "#6a51a3"} 
-      else if (mag<7.5){ return "#54278f"} 
-      else{ return              "#3f007d"} 
+      else if */(mag<5){ return "#e252be"} 
+      else if (mag<6){ return   "#a52d7d"} 
+      else if (mag<7){ return   "#8400e9"} 
+      else{ return              "#311432"} 
     }
   }
   else if (manager.compareMode == false && plID == 1){
     if /*(mag<4.5){ return      '#c7e9c0'} 
     else if (mag<5){ return   "#a1d99b"} 
-    else if */(mag<5.5){ return "#74c476"} 
-    else if (mag<6){ return   "#41ab5d"} 
-    else if (mag<6.5){ return "#238b45"} 
-    else if (mag<7){ return   "#006d2c"} 
-    else if (mag<7.5){ return "#00441b"} 
-    else{ return              "#254117"} 
+    else if */(mag<5){ return "#57be73"} 
+    else if (mag<6){ return   "#207a3e"} 
+    else if (mag<7){ return   "#015021"} 
+    else{ return              "#00250f"} 
   }
   else{
-    if (mag<4.5){ return      '#FFC281'} 
-    else if (mag<5){ return   "#FF9F71"} 
-    else if (mag<5.5){ return "#FF8141"} 
-    else if (mag<6){ return   "#FF421E"} 
-    else if (mag<6.5){ return "#FF1F10"} 
-    else if (mag<7){ return   "#E12000"} 
-    else if (mag<7.5){ return "#C21212"} 
-    else{ return              "#600000"} 
+    if /*(mag<4.5){ return      '#c7e9c0'} 
+    else if (mag<5){ return   "#a1d99b"} 
+    else if */(mag<5){ return "#FFC281"} 
+    else if (mag<6){ return   "#EF7215"} 
+    else if (mag<7){ return   "#B80F0A"} 
+    else{ return              "#3A1F04"} 
   }
   
 }

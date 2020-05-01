@@ -97,7 +97,7 @@ var yBoxD = d3.scaleLinear()
 	  .attr("height", (yBoxD(q1D)-yBoxD(q3D)) )
 	  .attr("width", widthD )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 
 	// show median, min and max horizontal lines
 	svgDepth
@@ -145,7 +145,7 @@ var yBoxD = d3.scaleLinear()
 	  .attr("height", (yBoxD(q1D2)-yBoxD(q3D2)) )
 	  .attr("width", widthD2 )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 .style("display", "none");
 
 	// show median, min and max horizontal lines
@@ -191,6 +191,11 @@ function updateBoxDepth(){
 	var interQuantileRange = q3D - q1D
 	var min2D = q1D - 1.5 * interQuantileRange
 	var max2D= q1D + 1.5 * interQuantileRange
+	if (Number.isNaN(min2D)) min2D = 0;
+	if (Number.isNaN(max2D)) max2D = 0;
+	if (medianD == undefined) medianD = 0;
+	if (q1D == undefined) q1D = 0;
+	if (q3D == undefined) q3D = 0;
 	
 	if (min2D<0){ min2D=0;
 	// Show the Y scale
@@ -229,7 +234,7 @@ function updateBoxDepth(){
 	  .attr("height", (yBoxD(q1D)-yBoxD(q3D)) )
 	  .attr("width", widthD )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 	  
     var boxesD = svgDepth.selectAll(".lineBox").data([min2D,medianD,max2D])
     boxesD.exit().remove();
@@ -299,7 +304,6 @@ function updateBoxDepth(){
 	
 	
 if(vett2.length==0 && vett22.length!=0){
-	console.log("ww")
 	var boxes1D=svgDepth.selectAll("line").remove();
 	var boxesD = svgDepth.selectAll(".lineBox").data([min2D,medianD,max2D])
     boxesD.exit().remove();
@@ -428,7 +432,7 @@ if(vett2.length==0 && vett22.length!=0){
 	  .attr("height", (yBoxD(q1D)-yBoxD(q3D)) )
 	  .attr("width", widthD )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 	  
     var boxesD = svgDepth.selectAll(".lineBox").data([min2D,medianD,max2D])
     boxesD.exit().remove();
@@ -508,7 +512,7 @@ if(vett2.length==0 && vett22.length!=0){
 	  .attr("height", (yBoxD(q1D)-yBoxD(q3D)) )
 	  .attr("width", widthD )
 	  .attr("stroke", "black")
-	  .style("fill", "#69b3a2")
+	  .style("fill", "#035e00")
 	  
     var boxesD = svgDepth.selectAll(".lineBox").data([min2D,medianD,max2D])
     boxesD.exit().remove();

@@ -1,7 +1,7 @@
 var others = [];
 
 var xBar = d3.scaleBand()
-.range([0, widthBar], .1)
+.range([1.5, widthBar], .1)
 .paddingInner(0.05);
 
 var yBar = d3.scaleLinear()    
@@ -32,8 +32,6 @@ manager.addListener('dataReady', function (e) {
     xAxisBar.selectAll("text")
     .attr("transform", "rotate(45)")
     .style("text-anchor", "start")
-    .attr("x",1)
-    .attr("y", 0)
     .attr("dx", ".71em");
     
     yAxisBar = svgBar.append("g")
@@ -63,24 +61,26 @@ manager.addListener('dataReady', function (e) {
         var magFqcs = computeMagFrequency(pl);
         d3.selectAll(".barRectMag").remove();
         magDiv.innerHTML = "";
+        magDiv.style.display = "none";
 
         for (var i = magFqcs.length-1; i >= 0; i--){
             var yL = 0
             for (var j = magFqcs.length-1; j >= i; j--){
                 yL += magFqcs[j][1]
             }
-            magDiv.innerHTML += "<p>"+ "Mag "+ magFqcs[i][0] + ": " + magFqcs[i][1] +"</p>"
+            magDiv.innerHTML += "<p>"+ "Mag < "+ magFqcs[i][0] + ": <mag style='color: " + chooseColorByMag(magFqcs[i][0], 0) + "; font-size: 15px'>" + magFqcs[i][1] +"</mag></p>"
+            magDiv.style.display = "block";
             rectBar.append("rect")
             .attr("class", "barRectMag")
             .attr("x", xBar(pl))
             .attr("width", xBar.bandwidth)
             .attr("y", yBar(yL))
             .attr("height", function(fcy) { return heightBar - yBar(magFqcs[i][1]); })
-            .attr("fill", chooseColorByMag(magFqcs[i][0]))
-            .style("stroke","black")
+            .attr("fill", chooseColorByMag(magFqcs[i][0],0))
             .on("click", function(d,i){
                 d3.selectAll(".barRectMag").remove();
                 magDiv.innerHTML = "";
+                magDiv.style.display = "none";
             });
         }
 
@@ -91,9 +91,10 @@ manager.addListener('dataReady', function (e) {
     rectBar
         .append("text")
             .attr("class", "barValues")
-            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth() - 5)/2; })
+            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth())/2; })
             .attr("y", function(d) { return yBar(d[1]) - 8; })
             .style("fill", "black")
+            .style("text-anchor", "middle")
             .attr("dy", ".35em")
             .text(function(d) { return d[1]; });
       
@@ -124,7 +125,7 @@ function computeFrequency(data){
 
         for (var i = items.length - 1; i >= 0; i--){
             var el = items[i];
-            if (el[1] <= 3){
+            if (el[1] <= 4){
                 if (! (others.includes(el[0]))) others.push(el[0]);
                 tot_others += el[1];
                 items.splice(i, 1);
@@ -209,6 +210,7 @@ function updateChart(){
         var magFqcs = computeMagFrequency(pl);
         d3.selectAll(".barRectMag").remove();
         magDiv.innerHTML = "";
+        magDiv.style.display = "none";
 
 
         for (var i = magFqcs.length-1; i >= 0; i--){
@@ -216,7 +218,8 @@ function updateChart(){
             for (var j = magFqcs.length-1; j >= i; j--){
                 yL += magFqcs[j][1]
             }
-            magDiv.innerHTML += "<p>"+ "Mag "+ magFqcs[i][0] + ": " + magFqcs[i][1] +"</p>"
+            magDiv.innerHTML += "<p>"+ "Mag < "+ magFqcs[i][0] + ": <mag style='color: " + chooseColorByMag(magFqcs[i][0], 0) + "; font-size: 15px'>" + magFqcs[i][1] +"</mag></p>"
+            magDiv.style.display = "block";
             svgBar.selectAll(".bar")
             .data(fqcs)
             .enter().append("rect")
@@ -225,11 +228,11 @@ function updateChart(){
             .attr("width", xBar.bandwidth)
             .attr("y", yBar(yL))
             .attr("height", function(fcy) { return heightBar - yBar(magFqcs[i][1]); })
-            .attr("fill", chooseColorByMag(magFqcs[i][0]))
-            .style("stroke","black")
+            .attr("fill", chooseColorByMag(magFqcs[i][0], 0))
             .on("click", function(d,i){
                 d3.selectAll(".barRectMag").remove();
                 magDiv.innerHTML = "";
+                magDiv.style.display = "none";
             });
         }
     });
@@ -240,9 +243,10 @@ function updateChart(){
     .enter()
     .append("text")
             .attr("class", "barValues")
-            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth() - 5)/2; })
+            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth())/2; })
             .attr("y", function(d) { return yBar(d[1]) - 8; })
             .style("fill", "black")
+            .style("text-anchor", "middle")
             .attr("dy", ".35em")
             .text(function(d) {return d[1]; });
 
@@ -254,8 +258,9 @@ function updateChart(){
             .attr("height", function(fcy) { return heightBar - yBar(fcy[1]);});
 
     svgBar.selectAll(".barValues").data(fqcs).transition().duration(500)
-            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth() - 5)/2; })
+            .attr("x", function(d) { return xBar(d[0]) + (xBar.bandwidth())/2; })
             .attr("y", function(d) { return yBar(d[1]) - 8; })
+            .style("text-anchor", "middle")
 
 
 }
@@ -268,6 +273,7 @@ manager.addListener('parallelBrushing', function (e) {
     if (manager.filteringByYear){
         d3.selectAll(".barRectMag").remove();
         magDiv.innerHTML = "";
+        magDiv.style.display = "none";
         showValues.checked = false;
         updateChart();
     }
@@ -277,12 +283,14 @@ manager.addListener('yearChanged', function (e) {
     showValues.checked = false;
     d3.selectAll(".barRectMag").remove();
     magDiv.innerHTML = "";
+    magDiv.style.display = "none";
     updateChart();
 });
 
 showValues.addEventListener("change", function(){
     d3.selectAll(".barRectMag").remove();
     magDiv.innerHTML = "";
+    magDiv.style.display = "none";
     updateChart();
 })
 
@@ -323,20 +331,14 @@ function computeMagFrequency(country){
         return second[0] - first[0];
     });
 
-    console.log(d)
-
     return items;
 
 }
 
 
 function roundMag(mag){
-    if (mag < 4.5) return 4.0;
-    else if (mag < 5.0) return 4.5;
-    else if (mag < 5.5) return 5.0;
-    else if (mag < 6.0) return 5.5;
-    else if (mag < 6.5) return 6.0;
-    else if (mag < 7.0) return 6.5;
-    else if (mag < 7.5) return 7.0;
-    else return 7.5;
+    if  (mag < 5.0) return 4.0;
+    else if (mag < 6.0) return 5.0;
+    else if (mag < 7.0) return 6.0;
+    else return 7.0;
 }
