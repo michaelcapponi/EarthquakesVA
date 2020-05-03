@@ -13,8 +13,8 @@
   // Define map projection
   var projection = d3
 	.geoEquirectangular()
-	.center([30, 15]) // set centre to further North as we are cropping more off bottom of map
-	.scale([w / (0.9 * Math.PI)]) // scale to fit group width
+	.center([35, 10]) // set centre to further North as we are cropping more off bottom of map
+	.scale([w / (1 * Math.PI)]) // scale to fit group width
 	.translate([w / 3.8, h / 0.9]) // ensure centred in group
   ;
 

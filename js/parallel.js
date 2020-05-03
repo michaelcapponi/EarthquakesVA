@@ -156,6 +156,14 @@ function start(){
         key: "place"
       },
       {
+        name: "Latitude",
+        key: "latitude"
+      },
+      {
+        name: "Depth",
+        key: "depth"
+      },
+      {
         name: "Mag",
         key: "mag"
       },
@@ -164,14 +172,6 @@ function start(){
         key: "magType"
       },      
       {
-        name: "Latitude",
-        key: "latitude"
-      },
-      {
-        name: "Depth",
-        key: "depth"
-      },
-          {
         name: "Time",
         key: "time"
       },
